@@ -20,7 +20,6 @@ public class ManagerScenes : MonoBehaviour
     float distanceCollision;
     [SerializeField]
     float actualdistanceCollision;
-    // Start is called before the first frame update
     void Start()
     {
         gameObjectActual=Instantiate(scenePrefab,new Vector3(scenePrefab.transform.position.x, scenePrefab.transform.position.y - 10, scenePrefab.transform.position.z),Quaternion.identity);
