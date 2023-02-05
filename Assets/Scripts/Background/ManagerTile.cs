@@ -14,7 +14,7 @@ public class ManagerTile : MonoBehaviour
     public GameObject water;
     public GameObject pipelinesLeft;
     public GameObject pipelinesRight;
-    public GameObject radioactive;
+    public List<GameObject> radioactive;
     public List<GameObject> rocks;
     public float speedRadioactiveEffect;
     int numSand=0;
@@ -50,7 +50,9 @@ public class ManagerTile : MonoBehaviour
             if (numFloat < probWater)
             {
                 GameObject go = Instantiate(water, transform.position, Quaternion.identity, transform);
-                go.transform.localPosition = new Vector3(0, UnityEngine.Random.Range(maxminValuesY.x, maxminValuesY.y), zdistance);
+                go.transform.Rotate(new Vector3(0, 180, 0));
+                go.transform.localPosition = new Vector3(0, UnityEngine.Random.Range(maxminValuesY.x, maxminValuesY.y), -1.07f);
+                go.transform.localScale = new Vector3(1.6f, 1.6f, 0.8f);
             }
         }
         for (int i = 0; i < numPipelines; i++)
@@ -80,7 +82,8 @@ public class ManagerTile : MonoBehaviour
             float numFloat = UnityEngine.Random.Range(0f, 1.1f);
             if (numFloat < probRadioactive)
             {
-                GameObject go = Instantiate(radioactive, transform.position, Quaternion.identity, transform);
+                int numPrefab = UnityEngine.Random.Range(0, radioactive.Count);
+                GameObject go = Instantiate(radioactive[numPrefab], transform.position, Quaternion.identity, transform);
                 go.transform.Rotate(new Vector3(0, 0, UnityEngine.Random.Range(0, 90f)));
                 go.transform.localPosition = new Vector3(UnityEngine.Random.Range(maxminValuesX.x, maxminValuesX.y), UnityEngine.Random.Range(maxminValuesY.x, maxminValuesY.y), -3.14f);
             }
