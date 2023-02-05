@@ -28,6 +28,13 @@ public class GameManager : MonoBehaviour
     public Levels actualLevel;
     public int actualLevelNum=0;
     [SerializeField]
+    float increaseLifeItemEffect;
+    [SerializeField]
+    float increaseSpeedItemEffect;
+    [SerializeField]
+    float decreaseSpeedItemEffect;
+
+    [SerializeField]
     public float timeToPassLevel;
     [SerializeField]
     public float lifeValueMax;
@@ -39,21 +46,28 @@ public class GameManager : MonoBehaviour
     public CameraFollow CameraFollow;
     public UIController uIController;
     public ManagerScenes sceneManager;
+    public CharacterController characterController;
     public bool checkChange2Dto3D=false;
     [SerializeField]
     float timeTillRestart;
     [SerializeField]
     float timeOfShowingDiorama;
+    [SerializeField]
+    public float speedMultiplier;
+    public Animator animatorTree;
+    [SerializeField]
+    float distance;
     // Start is called before the first frame update
     private void Awake()
     {
         lifeValue = lifeValueMax;
-        SwitchLevel(actualLevelNum);
+        SwitchLevel();
     }
     void Start()
     {
         stateGame = States.Play;
         CameraFollow.ChangeTarget(targetPlayer);
+        SetValuesLevel();
     }
 
     // Update is called once per frame
@@ -69,24 +83,63 @@ public class GameManager : MonoBehaviour
     public void CheckGameLoop()
     {
         ManageLifeValue();
+        CreateDistanceTraveled();
         time += Time.deltaTime;
-        if (checkChange2Dto3D == false)
+        distance += Time.deltaTime;
+
+        if (time > timeToPassLevel)
         {
-            if (time > timeToPassLevel)
+            SetValuesLevel();
+            checkChange2Dto3D = false;
+            if (checkChange2Dto3D == false)
             {
+
                 checkChange2Dto3D = true;
 
                 Transition2Dto3D();
 
                 StartCoroutine(WatchDiorama());
-                SwitchLevel(actualLevelNum);
+                SwitchLevel();
+                time = 0;
+                
 
             }
         }
+
         else if (lifeValue<=0)
         {
             GameOver();
         }
+    }
+    public void EffectModifier()
+    {
+        switch (actualTypeItemAffecting)
+        {
+            case TypeItem.None:
+                break;
+            case TypeItem.IncreaseLife:
+                lifeValue += increaseLifeItemEffect;
+                break;
+            case TypeItem.DefKill:
+                GameOver();
+                break;
+            case TypeItem.IncreaseSpeed:
+                characterController.speedVertical += increaseSpeedItemEffect;
+                break;
+            case TypeItem.DecreaseSpeed:
+                characterController.speedVertical -= decreaseSpeedItemEffect;
+                break;
+            case TypeItem.KillStroot:
+                break;
+            case TypeItem.KillPlant:
+                break;
+            default:
+                break;
+        }
+    }
+    public void SetValuesLevel()
+    {
+        sceneManager.SetLevelsOfTheScene(actualLevel);
     }
     public void ManageLifeValue()
     {
@@ -94,6 +147,12 @@ public class GameManager : MonoBehaviour
         uIController.UpdateLifeValueBar(lifeValue);
 
     }
+    public void CreateDistanceTraveled()
+    {
+        uIController.ChangeValueDistance(distance * 10);
+
+    }
+
     public void Transition2Dto3D()
     {
         stateGame = States.Pause;
@@ -106,10 +165,10 @@ public class GameManager : MonoBehaviour
     }
     public IEnumerator WatchDiorama()
     {
+        animatorTree.SetInteger("int_PlantForm", actualLevelNum);
         CameraFollow.ChangeTarget(targetDiorama);
         uIController.ShowOrDisableDioramaUI(true);
         yield return new WaitForSeconds(timeOfShowingDiorama);
-        Debug.Log("");
         CameraFollow.ChangeTarget(targetPlayer);
         uIController.ShowOrDisableDioramaUI(false);
         StartCoroutine(CountDown());
@@ -118,11 +177,11 @@ public class GameManager : MonoBehaviour
     public IEnumerator CountDown()
     {
         Transition3Dto2D();
-        Debug.Log("Countdown...");
         uIController.ShowOrDisableRestartUI(true,timeTillRestart);
         yield return new WaitForSeconds(timeTillRestart);
         stateGame = States.Play;
         uIController.ShowOrDisableRestartUI(false, timeTillRestart);
+        uIController.SetValueRestartUI();
 
 
 
@@ -133,16 +192,17 @@ public class GameManager : MonoBehaviour
         uIController.ShowGameOverUI();
         
     }
-    public void SwitchLevel(int num)
+    public void SwitchLevel()
     {
+        speedMultiplier += speedMultiplier;
         actualLevelNum++;
-        if (num>5)
+        if (actualLevelNum > 5)
         {
             actualLevel = Levels.More;
         }
-        switch (num)
+        switch (actualLevelNum)
         {
-            case 0:
+            case 1:
                 actualLevel = Levels.One;
                 break;
             case 2:
@@ -161,5 +221,6 @@ public class GameManager : MonoBehaviour
                 actualLevel = Levels.Zero;
                 break;
         }
+        characterController.ApplySpeedMultiplier(speedMultiplier);
     }
 }

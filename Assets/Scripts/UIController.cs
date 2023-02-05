@@ -14,11 +14,12 @@ public class UIController : MonoBehaviour
     [SerializeField]
     TextMeshProUGUI amountTimeRestart;
     [SerializeField]
+    TextMeshProUGUI amountDistance;
+    [SerializeField]
     GameObject canvasDiorama;
     public LifeValueBar lifeValueBar;
     float time=0;
-    int timeData;
-    float timeValueRestart;
+    public float timeValueRestart;
     bool restartControl = false;
     // Start is called before the first frame update
     void Start()
@@ -50,6 +51,11 @@ public class UIController : MonoBehaviour
         canvasDiorama.SetActive(control);
 
     }
+    public void SetValueRestartUI()
+    {
+        time=0;
+
+    }
     public void ShowOrDisableRestartUI(bool control,float time)
     {
         canvasRestart.SetActive(control);
@@ -70,5 +76,9 @@ public class UIController : MonoBehaviour
     public void ShowGameOverUI()
     {
         canvasGameOver.SetActive(true);
+    }
+    public void ChangeValueDistance(float distance)
+    {
+        amountDistance.text=Convert.ToInt32(distance).ToString();
     }
 }

@@ -4,6 +4,7 @@ using UnityEngine;
 public enum TypeItem
 {
     None,
+    IncreaseLife,
     DefKill,
     IncreaseSpeed,
     DecreaseSpeed,
@@ -16,7 +17,8 @@ public class Item : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        //manager = GetComponentInParent<ManagerLevels>();
+
     }
 
     // Update is called once per frame

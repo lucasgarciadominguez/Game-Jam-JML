@@ -24,7 +24,7 @@ public class CharacterCollider : MonoBehaviour
         }
         if (other.tag=="Item")
         {
-            itemCollision = other.GetComponent<Item>();
+            itemCollision = other.GetComponentInParent<Item>();
             MakeChangesWithTheItemCollision();
         }
 
