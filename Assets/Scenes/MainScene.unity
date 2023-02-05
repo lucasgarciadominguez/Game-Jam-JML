@@ -2549,6 +2549,10 @@ MonoBehaviour:
   speedMultiplier: 0.1
   animatorTree: {fileID: 949237225}
   distance: 0
+  player: {fileID: 1205897326}
+  timeToDivide: 2
+  maxDivisions: 4
+  xOffset: 2.5
 --- !u!1 &2049579519
 GameObject:
   m_ObjectHideFlags: 0

@@ -57,11 +57,29 @@ public class GameManager : MonoBehaviour
     public Animator animatorTree;
     [SerializeField]
     float distance;
+
+    List<CharacterController> players = new List<CharacterController>();
+
+    [SerializeField]
+    private GameObject player;
+    [SerializeField]
+    private float timeToDivide = 15f;
+    float privateTimeToDivide = 0;
+    [SerializeField]
+    private int maxDivisions = 4;
+    float increaser = 1;
+
+    //Variable para controlar lado al que se desplaza
+    int direction = 1; //1 right / -1 left
+    [SerializeField]
+    float xOffset;
+
     // Start is called before the first frame update
     private void Awake()
     {
         lifeValue = lifeValueMax;
         SwitchLevel();
+        players.Add(player.GetComponent<CharacterController>());
     }
     void Start()
     {
@@ -76,10 +94,45 @@ public class GameManager : MonoBehaviour
         if (stateGame==States.Play)
         {
             CheckGameLoop();
+            Divide();
         }
 
 
     }
+
+    public void Divide()
+    {
+        GameObject lastPlayer;
+
+        privateTimeToDivide += Time.deltaTime;
+
+        if(privateTimeToDivide >= timeToDivide && maxDivisions >= 0)
+        {
+            lastPlayer = Instantiate(player, player.transform.position, Quaternion.identity);
+
+            CharacterController playerController = player.GetComponent<CharacterController>();
+
+            CharacterController newPlayerController = lastPlayer.GetComponent<CharacterController>();
+
+            players.Add(newPlayerController);
+
+            lastPlayer.transform.position = new Vector3((player.transform.position.x + xOffset) * direction * increaser, player.transform.position.y , -0.5f);
+
+            newPlayerController.speedHorizontal = playerController.speedHorizontal;
+
+            direction *= -1;
+
+            maxDivisions--;
+
+            if (maxDivisions <= 2)
+            {
+                increaser = 2;
+            }
+
+            privateTimeToDivide = 0;
+        }
+    }
+
     public void CheckGameLoop()
     {
         ManageLifeValue();
@@ -150,7 +203,6 @@ public class GameManager : MonoBehaviour
     public void CreateDistanceTraveled()
     {
         uIController.ChangeValueDistance(distance * 10);
-
     }
 
     public void Transition2Dto3D()
@@ -160,7 +212,6 @@ public class GameManager : MonoBehaviour
     }
     public void Transition3Dto2D()
     {
-
         CameraFollow.cam.orthographic = true;
     }
     public IEnumerator WatchDiorama()
@@ -182,16 +233,14 @@ public class GameManager : MonoBehaviour
         stateGame = States.Play;
         uIController.ShowOrDisableRestartUI(false, timeTillRestart);
         uIController.SetValueRestartUI();
-
-
-
     }
+
     public void GameOver()
     {
         stateGame = States.Finished;
-        uIController.ShowGameOverUI();
-        
+        uIController.ShowGameOverUI();    
     }
+
     public void SwitchLevel()
     {
         speedMultiplier += speedMultiplier;
@@ -221,6 +270,11 @@ public class GameManager : MonoBehaviour
                 actualLevel = Levels.Zero;
                 break;
         }
-        characterController.ApplySpeedMultiplier(speedMultiplier);
+
+        foreach(CharacterController c in players)
+        {
+            c.ApplySpeedMultiplier(speedMultiplier);
+        }
+
     }
 }
