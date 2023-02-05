@@ -109,6 +109,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 179c14614e19e8040aa666b404d4ec8c, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: cf5e612b6d813e54ab7843b863153a42, type: 2}
     - target: {fileID: -5754084199372789682, guid: 179c14614e19e8040aa666b404d4ec8c, type: 3}
       propertyPath: m_Mesh
       value: 
@@ -141,7 +145,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8861563383070002577}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 0.015420244, y: 0.020714594, z: 0.019995479}

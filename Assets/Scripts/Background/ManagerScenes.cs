@@ -108,7 +108,7 @@ public class ManagerScenes : MonoBehaviour
                 tile.GetComponent<ManagerTile>().SetProbabilities(0f, 0.6f, 1f, 1f, 0.2f);
                 break;
             case 1:
-                tile.GetComponent<ManagerTile>().SetProbabilities(0f, 0f, 0f, 0f, 0f);
+                tile.GetComponent<ManagerTile>().SetProbabilities(0f, 1f, 0f, 1f, 0f);
                 break;
             case 2:
                 tile.GetComponent<ManagerTile>().SetProbabilities(0f, 0f, 0f, 0f, 0f);
