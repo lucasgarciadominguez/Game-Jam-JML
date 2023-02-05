@@ -75,19 +75,19 @@ public class ManagerScenes : MonoBehaviour
         switch (level)
         {
             case 0:
-                tile.GetComponent<ManagerTile>().SetLevel(1, hasWaterThisTile, 1, 2, 5);
+                tile.GetComponent<ManagerTile>().SetLevel(0, hasWaterThisTile, 0, 0, 2);
                 break;
             case 1:
-                tile.GetComponent<ManagerTile>().SetLevel(2, hasWaterThisTile, 5, 6, 4);
+                tile.GetComponent<ManagerTile>().SetLevel(0, hasWaterThisTile, 0, 0, 2);
                 break;
             case 2:
-                tile.GetComponent<ManagerTile>().SetLevel(2, hasWaterThisTile, 5, 3, 4);
+                tile.GetComponent<ManagerTile>().SetLevel(0, hasWaterThisTile, 2, 0, 5);
                 break;
             case 3:
-                tile.GetComponent<ManagerTile>().SetLevel(2, hasWaterThisTile, 5, 3, 4);
+                tile.GetComponent<ManagerTile>().SetLevel(2, hasWaterThisTile, 4, 0, 5);
                 break;
             case 4:
-                tile.GetComponent<ManagerTile>().SetLevel(2, hasWaterThisTile, 5, 3, 4);
+                tile.GetComponent<ManagerTile>().SetLevel(2, hasWaterThisTile, 5, 3, 5);
                 break;
             case 5:
                 tile.GetComponent<ManagerTile>().SetLevel(2, hasWaterThisTile, 5, 3, 4);
@@ -105,29 +105,29 @@ public class ManagerScenes : MonoBehaviour
         switch (level)
         {
             case 0:
-                tile.GetComponent<ManagerTile>().SetProbabilities(0f, 0.6f, 1f, 1f, 0.2f);
+                //tile.GetComponent<ManagerTile>().SetProbabilities(0f, 0.6f, 1f, 1f, 0.5f);
                 break;
             case 1:
-                tile.GetComponent<ManagerTile>().SetProbabilities(0f, 1f, 0f, 1f, 0f);
+                tile.GetComponent<ManagerTile>().SetProbabilities(0f, 0.5f, 0f, 0f, 0.9f);
                 break;
             case 2:
-                tile.GetComponent<ManagerTile>().SetProbabilities(0f, 0f, 0f, 0f, 0f);
+                tile.GetComponent<ManagerTile>().SetProbabilities(0f, 0.5f, 0.6f, 0f, 0.9f);
                 //tile.GetComponent<ManagerTile>().SetProbabilities(0.5f, 0.6f, 0.2f, 0f, 0.9f);
                 break;
             case 3:
-                tile.GetComponent<ManagerTile>().SetProbabilities(0f, 0f, 0f, 0f, 0f);
+                tile.GetComponent<ManagerTile>().SetProbabilities(0.3f, 0.5f, 0.7f, 0f, 0.9f);
                 //tile.GetComponent<ManagerTile>().SetProbabilities(0.2f, 0.6f, 0.2f, 0f, 0.9f);
                 break;
             case 4:
-                tile.GetComponent<ManagerTile>().SetProbabilities(0f, 0f, 0f, 0f, 0f);
+                tile.GetComponent<ManagerTile>().SetProbabilities(0.4f, 0.5f, 0.7f, 0.6f, 0.9f);
                 //tile.GetComponent<ManagerTile>().SetProbabilities(0.2f, 0.6f, 0.2f, 0f, 0.9f);
                 break;
             case 5:
-                tile.GetComponent<ManagerTile>().SetProbabilities(0f, 0f, 0f, 0f, 0f);
+                tile.GetComponent<ManagerTile>().SetProbabilities(0.5f, 0.6f, 0.8f, 0.7f, 0.9f);
                 //tile.GetComponent<ManagerTile>().SetProbabilities(0.2f, 0.6f, 0.2f, 0f, 0.9f);
                 break;
             case 6:
-                tile.GetComponent<ManagerTile>().SetProbabilities(0.2f, 0.6f, 0.2f, 0f, 0.9f);
+                tile.GetComponent<ManagerTile>().SetProbabilities(0.5f, 0.6f, 0.8f, 0.7f, 0.9f);
                 break;
             default:
                 break;

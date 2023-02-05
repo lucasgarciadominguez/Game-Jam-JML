@@ -6,6 +6,9 @@ TagManager:
   tags:
   - CollisionBack
   - Item
+  - ColliderBackground
+  - ColliderBackgroundR
+  - ColliderBackgroundL
   layers:
   - Default
   - TransparentFX

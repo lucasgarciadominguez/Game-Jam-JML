@@ -27,6 +27,15 @@ public class CharacterCollider : MonoBehaviour
             itemCollision = other.GetComponentInParent<Item>();
             MakeChangesWithTheItemCollision();
         }
+        if (other.tag=="ColliderBackgroundR")
+        {
+            characterController.BlockMovementInDirection(true);
+        }
+        if (other.tag == "ColliderBackgroundL")
+        {
+            characterController.BlockMovementInDirection(false);
+
+        }
 
     }
     public void MakeChangesWithTheItemCollision()

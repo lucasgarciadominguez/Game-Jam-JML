@@ -24,10 +24,21 @@ public class CharacterController : MonoBehaviour
         if (gameManager.stateGame==States.Play)
         {
             float h = Input.GetAxisRaw("Horizontal");
-            transform.Translate(new Vector3(h* speedHorizontal,-speedVertical, 0)* Time.deltaTime);
+            transform.Translate(new Vector3(Mathf.Clamp( h* speedHorizontal, dimensionsScreenClamp.x,dimensionsScreenClamp.y),-speedVertical, 0)* Time.deltaTime);
         }
 
 
+    }
+    public void BlockMovementInDirection(bool check)
+    {
+        if (check)  //right
+        {
+
+        }
+        else
+        {
+
+        }
     }
     public void ChangeColliderItemPosition()
     {
