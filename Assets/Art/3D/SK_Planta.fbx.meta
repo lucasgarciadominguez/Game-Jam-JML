@@ -256,8 +256,8 @@ ModelImporter:
       name: FinalForm
       takeName: Armature|ArmatureAction
       internalID: 0
-      firstFrame: 200
-      lastFrame: 200
+      firstFrame: 198
+      lastFrame: 199
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
